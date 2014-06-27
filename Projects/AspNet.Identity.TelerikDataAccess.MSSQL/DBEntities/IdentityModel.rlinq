@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="IdentityModel" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="IdentityModel" backend="mssql" default-schema="dbo" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" default="true">
+      <orm:class name="UserLogin" uniqueId="cf0be9f3-e06f-470b-ba54-8c218a397da1">
+        <orm:table name="UserLogin" schema="AspNetIdentity" />
+        <orm:identity>
+          <orm:multiple-field>
+            <orm:single-field field-name="_loginProvider" />
+            <orm:single-field field-name="_providerKey" />
+            <orm:single-field field-name="_userId" />
+          </orm:multiple-field>
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_loginProvider" property="LoginProvider" behavior="readwrite" uniqueId="3798f257-1e84-4f09-ad67-660ce5c01523" type="System.String">
+          <orm:column name="LoginProvider" sql-type="nvarchar" nullable="false" length="128" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_providerKey" property="ProviderKey" behavior="readwrite" uniqueId="980daa02-9713-4e76-adfc-ca2b89ebaa0d" type="System.String">
+          <orm:column name="ProviderKey" sql-type="nvarchar" nullable="false" length="128" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_userId" property="UserId" behavior="readwrite" uniqueId="19cfd6e7-4543-45da-aee3-fb2a560e105b" type="System.Int32">
+          <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_user" property="User" behavior="readwrite" uniqueId="f3282376-ea0c-4791-bd59-88b2a32ae365" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User">
+          <orm:reference uniqueId="4fbd54d6-3791-466b-9d0a-16ca5b4fffc5" association-name="UserLoginHasUser">
+            <orm:sharedfield name="_userId" target-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User" target-field="_id" />
+            <orm:constraint name="FK_UserLogin_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User" />
+          </orm:reference>
+        </orm:field>
+        <orm:index name="IX_UserId">
+          <orm:columnMapping>
+            <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="UserClaim" uniqueId="b72e28a2-fd0b-4924-9c04-c09ab2057012">
+        <orm:table name="UserClaim" schema="AspNetIdentity" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="bbb8b92b-4424-424a-88a6-230e8c570159" type="System.Int32">
+          <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_userId" property="UserId" behavior="readwrite" uniqueId="c57f1fae-a71f-4cf7-8ed1-1ad5f9f05d26" type="System.Int32">
+          <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_claimType" property="ClaimType" behavior="readwrite" uniqueId="ab8e2956-b1d0-4568-83e9-345952c43cb8" type="System.String">
+          <orm:column name="ClaimType" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        </orm:field>
+        <orm:field name="_claimValue" property="ClaimValue" behavior="readwrite" uniqueId="5f9c477e-cfaa-4f5f-aa64-36e6c18ef818" type="System.String">
+          <orm:column name="ClaimValue" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        </orm:field>
+        <orm:field name="_user" property="User" behavior="readwrite" uniqueId="e101a40f-82a9-4283-81b9-eaaf1a9090e5" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User">
+          <orm:reference uniqueId="df4381d8-0001-4ef0-b1dd-99b015b77cb5" association-name="UserClaimHasUser">
+            <orm:sharedfield name="_userId" target-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User" target-field="_id" />
+            <orm:constraint name="FK_UserClaim_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User" />
+          </orm:reference>
+        </orm:field>
+        <orm:index name="IX_UserId">
+          <orm:columnMapping>
+            <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="User" uniqueId="258ef8b6-a792-4fd3-9e07-555ca14a1872">
+        <orm:table name="User" schema="AspNetIdentity" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="7b191486-5629-48c7-9e7e-619cc98f4bbf" type="System.Int32">
+          <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="0b92c366-3729-4579-a495-e87641bd486b" type="System.String">
+          <orm:column name="Email" sql-type="nvarchar" nullable="true" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_emailConfirmed" property="EmailConfirmed" behavior="readwrite" uniqueId="3959beb5-2568-41fc-9d56-cf22e5091cce" type="System.Boolean">
+          <orm:column name="EmailConfirmed" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        </orm:field>
+        <orm:field name="_passwordHash" property="PasswordHash" behavior="readwrite" uniqueId="6fd05ab7-118b-4796-a152-0b59a711e4bc" type="System.String">
+          <orm:column name="PasswordHash" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        </orm:field>
+        <orm:field name="_securityStamp" property="SecurityStamp" behavior="readwrite" uniqueId="8b284d08-8732-45c7-8e7f-8e732db74b8a" type="System.String">
+          <orm:column name="SecurityStamp" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        </orm:field>
+        <orm:field name="_phoneNumber" property="PhoneNumber" behavior="readwrite" uniqueId="cc5f14c7-27be-4525-9de4-14bcd11e8f12" type="System.String">
+          <orm:column name="PhoneNumber" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        </orm:field>
+        <orm:field name="_phoneNumberConfirmed" property="PhoneNumberConfirmed" behavior="readwrite" uniqueId="4aff6c02-ce3b-4430-bf91-ed78ec005a7e" type="System.Boolean">
+          <orm:column name="PhoneNumberConfirmed" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        </orm:field>
+        <orm:field name="_twoFactorEnabled" property="TwoFactorEnabled" behavior="readwrite" uniqueId="52e4ec2f-76c1-483c-9dfd-8ef9910d5812" type="System.Boolean">
+          <orm:column name="TwoFactorEnabled" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        </orm:field>
+        <orm:field name="_lockoutEndDateUtc" property="LockoutEndDateUtc" behavior="readwrite" uniqueId="0b9d1f29-ab94-495b-ba4e-65a6f5fbcbcf" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="LockoutEndDateUtc" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_lockoutEnabled" property="LockoutEnabled" behavior="readwrite" uniqueId="00ab4019-31cb-44e7-8be5-afb0c612b112" type="System.Boolean">
+          <orm:column name="LockoutEnabled" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        </orm:field>
+        <orm:field name="_accessFailedCount" property="AccessFailedCount" behavior="readwrite" uniqueId="cb96d9ad-c494-4b97-ae31-9f0c8d81c652" type="System.Int32">
+          <orm:column name="AccessFailedCount" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_userName" property="UserName" behavior="readwrite" uniqueId="531cc59d-1e11-4870-aef8-32f2b2470768" type="System.String">
+          <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_userLogins" property="UserLogins" behavior="readwrite" uniqueId="11533e7b-d2f4-45c8-a823-b0c43c4511d6" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserLogin">
+          <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserLogin" inverse-field="_user" order-by="" uniqueId="4fbd54d6-3791-466b-9d0a-16ca5b4fffc5" />
+        </orm:field>
+        <orm:field name="_userClaims" property="UserClaims" behavior="readwrite" uniqueId="a6615ae3-1d59-406d-acca-d2cb9d87f779" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserClaim">
+          <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserClaim" inverse-field="_user" order-by="" uniqueId="df4381d8-0001-4ef0-b1dd-99b015b77cb5" />
+        </orm:field>
+        <orm:field name="_roles" property="Roles" behavior="readwrite" uniqueId="6fee39f9-560c-4bf0-8272-3f65c4309153" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role">
+          <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role" inverse-field="_users" order-by="" uniqueId="9f95ee46-93a7-4802-8aa2-f030210c51cb" />
+        </orm:field>
+        <orm:index name="UserNameIndex" unique="true">
+          <orm:columnMapping>
+            <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="Role" uniqueId="96424d01-3856-4474-bf87-6d6a095bd314">
+        <orm:table name="Role" schema="AspNetIdentity" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="2a46570c-29ad-406d-a1ec-6e942b056b5e" type="System.Int32">
+          <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" behavior="readwrite" uniqueId="cd314ed5-4ce7-42c9-b9ea-81af6064b07d" type="System.String">
+          <orm:column name="Name" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_users" property="Users" behavior="readwrite" uniqueId="5d6e2771-07b6-47ea-9e03-6dea51a67c9e" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User">
+          <orm:join-table uniqueId="9f95ee46-93a7-4802-8aa2-f030210c51cb" association-name="RolesHaveUsers">
+            <orm:table name="UserRole" schema="AspNetIdentity" join-table="true" />
+            <orm:owner>
+              <orm:constraint name="FK_UserRole_Role_RoleId" schema="AspNetIdentity" delete-action="cascade" destination-table="Role">
+                <orm:column name="RoleId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" target-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role" target-field="_id" />
+              </orm:constraint>
+            </orm:owner>
+            <orm:value>
+              <orm:constraint name="FK_UserRole_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User">
+                <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" target-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User" target-field="_id" />
+              </orm:constraint>
+            </orm:value>
+          </orm:join-table>
+        </orm:field>
+        <orm:index name="RoleNameIndex" unique="true">
+          <orm:columnMapping>
+            <orm:column name="Name" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="AspNetIdentity">
+      <orm:table name="UserRole" schema="AspNetIdentity" join-table="true">
+        <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        <orm:column name="RoleId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        <orm:index name="IX_RoleId">
+          <orm:columnMapping>
+            <orm:column name="RoleId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="IX_UserId">
+          <orm:columnMapping>
+            <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="FK_UserRole_Role_RoleId" schema="AspNetIdentity" delete-action="cascade" destination-table="Role">
+          <orm:column name="RoleId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        </orm:constraint>
+        <orm:constraint name="FK_UserRole_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User">
+          <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        </orm:constraint>
+      </orm:table>
+      <orm:table name="UserLogin" schema="AspNetIdentity">
+        <orm:column name="LoginProvider" sql-type="nvarchar" nullable="false" length="128" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="ProviderKey" sql-type="nvarchar" nullable="false" length="128" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        <orm:index name="IX_UserId">
+          <orm:columnMapping>
+            <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="FK_UserLogin_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User">
+          <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        </orm:constraint>
+      </orm:table>
+      <orm:table name="UserClaim" schema="AspNetIdentity">
+        <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="ClaimType" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="ClaimValue" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:index name="IX_UserId">
+          <orm:columnMapping>
+            <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="FK_UserClaim_User_UserId" schema="AspNetIdentity" delete-action="cascade" destination-table="User">
+          <orm:column name="UserId" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+      </orm:table>
+      <orm:table name="User" schema="AspNetIdentity">
+        <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Email" sql-type="nvarchar" nullable="true" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="EmailConfirmed" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        <orm:column name="PasswordHash" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="SecurityStamp" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="PhoneNumber" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="PhoneNumberConfirmed" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        <orm:column name="TwoFactorEnabled" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        <orm:column name="LockoutEndDateUtc" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="LockoutEnabled" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        <orm:column name="AccessFailedCount" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:index name="UserNameIndex" unique="true">
+          <orm:columnMapping>
+            <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="Role" schema="AspNetIdentity">
+        <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Name" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:index name="RoleNameIndex" unique="true">
+          <orm:columnMapping>
+            <orm:column name="Name" sql-type="nvarchar" nullable="false" length="256" scale="0" ado-type="UnicodeStringVariableLength" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+    </orm:schema>
+    <orm:relational-naming-settings>
+      <orm:source-strategy>Property</orm:source-strategy>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>AspNetIdentityConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>data source=localhost\sqlexpress;initial catalog=AspNetIdentity;integrated security=True</AppConfigConnectionString>
+    <InitialCatalog>AspNetIdentity</InitialCatalog>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+      <NavigationPropertyRules />
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings />
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MsSql</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="cf0be9f3-e06f-470b-ba54-8c218a397da1" name="UserLogin" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="3798f257-1e84-4f09-ad67-660ce5c01523" name="LoginProvider" label="LoginProvider : String" kind="Persistent" identity="true" fieldName="_loginProvider" />
+      <Property Id="980daa02-9713-4e76-adfc-ca2b89ebaa0d" name="ProviderKey" label="ProviderKey : String" kind="Persistent" identity="true" fieldName="_providerKey" />
+      <Property Id="19cfd6e7-4543-45da-aee3-fb2a560e105b" name="UserId" type="Int32" label="UserId : Int32" kind="Persistent" identity="true" fieldName="_userId" />
+      <AssociationTargets>
+        <Association Id="4fbd54d6-3791-466b-9d0a-16ca5b4fffc5" SourceMultiplicity="One" name="UserLoginHasUser">
+          <DomainClassMoniker name="/IdentityModel/User" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="8324d067-6f52-47ee-99bf-a95330cf790a">
+              <NavigationalPropertyMoniker name="/IdentityModel/User/UserLogins" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="96cfef47-4fe9-4ce4-9434-ef9cf9025ad4">
+              <NavigationalPropertyMoniker name="/IdentityModel/UserLogin/User" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="4e4dc2b1-bb8a-4341-bf8e-d9bda3c33ee3">
+          <NavigationalProperty Id="f3282376-ea0c-4791-bd59-88b2a32ae365" name="User" type="User" label="User : User" nullable="true" kind="Persistent" fieldName="_user" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="b72e28a2-fd0b-4924-9c04-c09ab2057012" name="UserClaim" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="bbb8b92b-4424-424a-88a6-230e8c570159" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="ab8e2956-b1d0-4568-83e9-345952c43cb8" name="ClaimType" label="ClaimType : String" kind="Persistent" fieldName="_claimType" />
+      <Property Id="5f9c477e-cfaa-4f5f-aa64-36e6c18ef818" name="ClaimValue" label="ClaimValue : String" kind="Persistent" fieldName="_claimValue" />
+      <Property Id="c57f1fae-a71f-4cf7-8ed1-1ad5f9f05d26" name="UserId" type="Int32" label="UserId : Int32" kind="Persistent" fieldName="_userId" />
+      <AssociationTargets>
+        <Association Id="df4381d8-0001-4ef0-b1dd-99b015b77cb5" SourceMultiplicity="One" name="UserClaimHasUser">
+          <DomainClassMoniker name="/IdentityModel/User" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="0e47bb8b-f38e-4453-b39d-cc4927396dfa">
+              <NavigationalPropertyMoniker name="/IdentityModel/User/UserClaims" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="b32c9a18-e2c0-4a25-87ef-b97a688db503">
+              <NavigationalPropertyMoniker name="/IdentityModel/UserClaim/User" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="2e78067d-ae90-4c3b-8f66-72ccbe2f6f3b">
+          <NavigationalProperty Id="e101a40f-82a9-4283-81b9-eaaf1a9090e5" name="User" type="User" label="User : User" nullable="true" kind="Persistent" fieldName="_user" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="258ef8b6-a792-4fd3-9e07-555ca14a1872" name="User" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="7b191486-5629-48c7-9e7e-619cc98f4bbf" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="cb96d9ad-c494-4b97-ae31-9f0c8d81c652" name="AccessFailedCount" type="Int32" label="AccessFailedCount : Int32" kind="Persistent" fieldName="_accessFailedCount" />
+      <Property Id="0b92c366-3729-4579-a495-e87641bd486b" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
+      <Property Id="3959beb5-2568-41fc-9d56-cf22e5091cce" name="EmailConfirmed" type="Boolean" label="EmailConfirmed : Boolean" kind="Persistent" fieldName="_emailConfirmed" />
+      <Property Id="00ab4019-31cb-44e7-8be5-afb0c612b112" name="LockoutEnabled" type="Boolean" label="LockoutEnabled : Boolean" kind="Persistent" fieldName="_lockoutEnabled" />
+      <Property Id="0b9d1f29-ab94-495b-ba4e-65a6f5fbcbcf" name="LockoutEndDateUtc" type="DateTime" label="LockoutEndDateUtc : DateTime" nullable="true" kind="Persistent" fieldName="_lockoutEndDateUtc" />
+      <Property Id="6fd05ab7-118b-4796-a152-0b59a711e4bc" name="PasswordHash" label="PasswordHash : String" kind="Persistent" fieldName="_passwordHash" />
+      <Property Id="cc5f14c7-27be-4525-9de4-14bcd11e8f12" name="PhoneNumber" label="PhoneNumber : String" kind="Persistent" fieldName="_phoneNumber" />
+      <Property Id="4aff6c02-ce3b-4430-bf91-ed78ec005a7e" name="PhoneNumberConfirmed" type="Boolean" label="PhoneNumberConfirmed : Boolean" kind="Persistent" fieldName="_phoneNumberConfirmed" />
+      <Property Id="8b284d08-8732-45c7-8e7f-8e732db74b8a" name="SecurityStamp" label="SecurityStamp : String" kind="Persistent" fieldName="_securityStamp" />
+      <Property Id="52e4ec2f-76c1-483c-9dfd-8ef9910d5812" name="TwoFactorEnabled" type="Boolean" label="TwoFactorEnabled : Boolean" kind="Persistent" fieldName="_twoFactorEnabled" />
+      <Property Id="531cc59d-1e11-4870-aef8-32f2b2470768" name="UserName" label="UserName : String" kind="Persistent" fieldName="_userName" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="deeb02ec-7875-4fbe-bf99-8c0010e92357">
+          <NavigationalProperty Id="11533e7b-d2f4-45c8-a823-b0c43c4511d6" name="UserLogins" type="IList&lt;UserLogin&gt;" label="UserLogins : IList&lt;UserLogin&gt;" nullable="true" kind="Persistent" fieldName="_userLogins" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="602916af-7df0-47ab-8059-939348267b1e">
+          <NavigationalProperty Id="a6615ae3-1d59-406d-acca-d2cb9d87f779" name="UserClaims" type="IList&lt;UserClaim&gt;" label="UserClaims : IList&lt;UserClaim&gt;" nullable="true" kind="Persistent" fieldName="_userClaims" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="2d8df956-5d34-4c16-b737-f19423dc130f">
+          <NavigationalProperty Id="6fee39f9-560c-4bf0-8272-3f65c4309153" name="Roles" type="IList&lt;Role&gt;" label="Roles : IList&lt;Role&gt;" nullable="true" kind="Persistent" fieldName="_roles" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="96424d01-3856-4474-bf87-6d6a095bd314" name="Role" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="2a46570c-29ad-406d-a1ec-6e942b056b5e" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="cd314ed5-4ce7-42c9-b9ea-81af6064b07d" name="Name" label="Name : String" kind="Persistent" fieldName="_name" />
+      <AssociationTargets>
+        <Association Id="9f95ee46-93a7-4802-8aa2-f030210c51cb" name="RolesHaveUsers">
+          <DomainClassMoniker name="/IdentityModel/User" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="3dd2facf-6b2a-44b7-bb10-29033eb34a51">
+              <NavigationalPropertyMoniker name="/IdentityModel/User/Roles" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="e9afad50-fff4-4c30-878c-25aeae04998d">
+              <NavigationalPropertyMoniker name="/IdentityModel/Role/Users" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="ded9ea3b-84f2-4230-bfc7-775cb45f9a16">
+          <NavigationalProperty Id="5d6e2771-07b6-47ea-9e03-6dea51a67c9e" name="Users" type="IList&lt;User&gt;" label="Users : IList&lt;User&gt;" nullable="true" kind="Persistent" fieldName="_users" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="47a77480-223a-4115-b24e-f8359fd2bbc3">
+      <domainContainer name="IdentityModel" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" showPropertiesCompartment="true">
+        <entitySetProperty name="UserLogins" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" type="UserLogin" label="UserLogins : IQueryable&lt;AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserLogin&gt;" />
+        <entitySetProperty name="UserClaims" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" type="UserClaim" label="UserClaims : IQueryable&lt;AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserClaim&gt;" />
+        <entitySetProperty name="Users" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" type="User" label="Users : IQueryable&lt;AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.User&gt;" />
+        <entitySetProperty name="Roles" namespace="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities" type="Role" label="Roles : IQueryable&lt;AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>

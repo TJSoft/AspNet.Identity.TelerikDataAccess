@@ -118,7 +118,7 @@
           <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.UserClaim" inverse-field="_user" order-by="" uniqueId="df4381d8-0001-4ef0-b1dd-99b015b77cb5" />
         </orm:field>
         <orm:field name="_roles" property="Roles" behavior="readwrite" uniqueId="6fee39f9-560c-4bf0-8272-3f65c4309153" type="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role">
-          <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role" inverse-field="_users" order-by="" uniqueId="9f95ee46-93a7-4802-8aa2-f030210c51cb" />
+          <orm:collection element-class="AspNet.Identity.TelerikDataAccess.MSSQL.DBEntities.Role" inverse-field="_users" managed="true" order-by="" uniqueId="9f95ee46-93a7-4802-8aa2-f030210c51cb" />
         </orm:field>
         <orm:index name="UserNameIndex" unique="true">
           <orm:columnMapping>
@@ -347,7 +347,7 @@
           <NavigationalProperty Id="a6615ae3-1d59-406d-acca-d2cb9d87f779" name="UserClaims" type="IList&lt;UserClaim&gt;" label="UserClaims : IList&lt;UserClaim&gt;" nullable="true" kind="Persistent" fieldName="_userClaims" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="2d8df956-5d34-4c16-b737-f19423dc130f">
-          <NavigationalProperty Id="6fee39f9-560c-4bf0-8272-3f65c4309153" name="Roles" type="IList&lt;Role&gt;" label="Roles : IList&lt;Role&gt;" nullable="true" kind="Persistent" fieldName="_roles" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="6fee39f9-560c-4bf0-8272-3f65c4309153" name="Roles" type="IList&lt;Role&gt;" label="Roles : IList&lt;Role&gt;" nullable="true" kind="Persistent" fieldName="_roles" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -371,7 +371,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="ded9ea3b-84f2-4230-bfc7-775cb45f9a16">
-          <NavigationalProperty Id="5d6e2771-07b6-47ea-9e03-6dea51a67c9e" name="Users" type="IList&lt;User&gt;" label="Users : IList&lt;User&gt;" nullable="true" kind="Persistent" fieldName="_users" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="5d6e2771-07b6-47ea-9e03-6dea51a67c9e" name="Users" type="IList&lt;User&gt;" label="Users : IList&lt;User&gt;" nullable="true" kind="Persistent" fieldName="_users" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

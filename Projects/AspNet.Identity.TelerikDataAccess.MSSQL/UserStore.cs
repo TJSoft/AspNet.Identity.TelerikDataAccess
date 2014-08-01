@@ -14,7 +14,9 @@ namespace AspNet.Identity.TelerikDataAccess.MSSQL
         IUserPasswordStore<IdentityUser<int>, int>,
         IUserSecurityStampStore<IdentityUser<int>, int>,
         IUserRoleStore<IdentityUser<int>, int>,
-        IUserClaimStore<IdentityUser<int>, int>
+        IUserClaimStore<IdentityUser<int>, int>,
+        IUserEmailStore<IdentityUser<int>, int>
+
     {
         private IdentityModel model;
 
@@ -99,9 +101,7 @@ namespace AspNet.Identity.TelerikDataAccess.MSSQL
         Task<IdentityUser<int>> IUserStore<IdentityUser<int>, int>.FindByNameAsync(string userName)
         {
             if (userName == null)
-            {
                 throw new ArgumentNullException("userName");
-            }
 
             IdentityUser<int> user = null;
 
@@ -319,6 +319,71 @@ namespace AspNet.Identity.TelerikDataAccess.MSSQL
             }
 
             return Task.FromResult<object>(null);
+        }
+
+        public Task SetEmailAsync(IdentityUser<int> user, string email)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            user.Email = email;
+
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<string> GetEmailAsync(IdentityUser<int> user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            string result = null;
+
+            User dbUser = this.model.Users.FirstOrDefault(u => u.Id == user.Id);
+
+            if (dbUser != null)
+                result = dbUser.Email;
+
+            return Task.FromResult(result);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(IdentityUser<int> user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            bool result = false;
+
+            User dbUser = this.model.Users.FirstOrDefault(u => u.Id == user.Id);
+
+            if (dbUser != null)
+                result = dbUser.EmailConfirmed;
+
+            return Task.FromResult(result);
+        }
+
+        public Task SetEmailConfirmedAsync(IdentityUser<int> user, bool confirmed)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            user.EmailConfirmed = confirmed;
+
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<IdentityUser<int>> FindByEmailAsync(string email)
+        {
+            if (email == null)
+                throw new ArgumentNullException("email");
+
+            IdentityUser<int> user = null;
+
+            User dbUser = this.model.Users.FirstOrDefault(u => u.Email == email);
+
+            if (dbUser != null)
+                user = dbUser.ToIdentityUser();
+
+            return Task.FromResult(user);
         }
     }
 }
